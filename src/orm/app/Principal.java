@@ -22,10 +22,14 @@ import orm.*;
  * @author Mauricio Acencio
  */
 public class Principal extends javax.swing.JFrame {
-    
+
     private static PersistentTransaction t;
     private static byte seleccion = 0;
-    
+
+    /**
+     * \u00cdndice identificador correspondiente al curso actualmente
+     * seleccionado.
+     */
     public static int cu_id;
 
     /**
@@ -54,6 +58,7 @@ public class Principal extends javax.swing.JFrame {
 
     /**
      * Creates new form Ventana
+     * @throws PersistentException Error en capa de Persistencia
      */
     public Principal() throws PersistentException {
         t.commit();
@@ -61,13 +66,17 @@ public class Principal extends javax.swing.JFrame {
         if (seleccion > 0) {
             cursos.setSelectedIndex(seleccion);
         }
-       setPanel(false);
+        setPanel(false);
     }
-    
+
+    /**
+     * Inicializa una transacción en la capa de negocio
+     * @throws PersistentException Error en capa de Persistencia
+     */
     public static void iniciarTransaccion() throws PersistentException {
         t = orm.LibroClasePersistentManager.instance().getSession().beginTransaction();
     }
-    
+
     private int getCursoID() throws PersistentException {
         String sel = (String) cursos.getSelectedItem();
         String cond = "letra = '" + sel.charAt(3) + "' and nivel = " + sel.charAt(0)
@@ -76,11 +85,19 @@ public class Principal extends javax.swing.JFrame {
         cu_id = cur.getId();
         return cu_id;
     }
-    
+
+    /**
+     * Accede al alumno que ha quedado seleccionado de la ventana pirncipal.
+     * @return Estudiante actualmente seleccionado.
+     */
     public static Estudiante getEstudianteSeleccionado() {
         return almns.get(numAlumno);
     }
-    
+
+    /**
+     * Accede al ramo que ha quedado seleccionado de la ventana pirncipal.
+     * @return Asignatura actualmente seleccionada.
+     */
     public static Asignatura getRamoSeleccionado() {
         return ramos.get(numRamo);
     }
@@ -635,7 +652,7 @@ public class Principal extends javax.swing.JFrame {
         this.dispose();
         new NuevaAsistencia().setVisible(true);
     }
-    
+
     private void agregarNota() throws PersistentException {
         iniciarTransaccion();
         Nota n = new Nota();
@@ -649,7 +666,7 @@ public class Principal extends javax.swing.JFrame {
         t.commit();
         setTextoAlumno();
     }
-    
+
     private void setAlumnos() throws PersistentException {
         int cid = getCursoID();
         Curso_estudiante[] ces = Curso_estudianteDAO.listCurso_estudianteByQuery("curso_id_fk = " + cid, null);
@@ -658,7 +675,7 @@ public class Principal extends javax.swing.JFrame {
             almns.add(ce.getEstudiante_id_fk());
         }
     }
-    
+
     private void setRamos() throws PersistentException {
         int cid = getCursoID();
         Asignatura[] asigs = AsignaturaDAO.listAsignaturaByQuery("curso_id_fk = " + cid, null);
@@ -728,8 +745,8 @@ public class Principal extends javax.swing.JFrame {
                 modeloAnot.addElement(anotacion);
             }
             for (Nota nota : al.nota.toArray()) {
-                ListaNotas.addItem(nota.getNota() + ": " +
-                        nota.getActividad_id_fk().getNombre() + " ("
+                ListaNotas.addItem(nota.getNota() + ": "
+                        + nota.getActividad_id_fk().getNombre() + " ("
                         + nota.getActividad_id_fk().getAsignatura_id_fk().getNombre());
             }
             listaAnotaciones.setModel(modeloAnot);
@@ -738,8 +755,12 @@ public class Principal extends javax.swing.JFrame {
             agregarAsistencia.setEnabled(true);
         }
     }
-    
-    public static void error(Exception pe){
+
+    /**
+     * Para posibles errores en tiempo de ejecución, incluyendo capa ORM.
+     * @param pe la excepción lanzada.
+     */
+    public static void error(Exception pe) {
         pe.printStackTrace();
         try {
             t.rollback();
@@ -750,9 +771,6 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        <editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

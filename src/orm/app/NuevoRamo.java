@@ -5,12 +5,9 @@
  */
 package orm.app;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.orm.PersistentException;
 import orm.Asignatura;
 import orm.AsignaturaDAO;
-import orm.Curso;
 import orm.CursoDAO;
 import orm.Persona;
 import orm.PersonaDAO;
@@ -234,9 +231,6 @@ public class NuevoRamo extends javax.swing.JFrame {
         }
     }
 
-    /**
-     * @param args the command line arguments
-     */
 //    public static void main(String args[]) {
 //        /* Set the Nimbus look and feel */
 //        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
