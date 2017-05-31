@@ -658,11 +658,14 @@ public class Principal extends javax.swing.JFrame {
         String[] split = listaActividades.getSelectedValue().split(":");
         String cond = "id = " + split[0];
         Actividad actv = ActividadDAO.loadActividadByQuery(cond, null);
-        if (actv.getNota() != null) {
-            String msg = "La actividad seleccionada ya tiene una nota asignada."
-                    + "\nPor favor, eliga otra";
-            JOptionPane.showMessageDialog(null, msg);
-            return;
+        Nota[] toArray = getEstudianteSeleccionado().nota.toArray();
+        for (Nota n : toArray) {
+            if (actv.nota.contains(n)) {
+                String msg = "La actividad seleccionada ya tiene una nota asignada"
+                        + "\npara este alumno. Por favor, eliga otra actividad";
+                JOptionPane.showMessageDialog(null, msg);
+                return;
+            }
         }
         iniciarTransaccion();
         Nota n = new Nota();

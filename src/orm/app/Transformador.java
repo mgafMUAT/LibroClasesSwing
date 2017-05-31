@@ -48,7 +48,7 @@ public class Transformador {
                             + "</tipo>" + nl);
                     gxml.write("                    <descripcion>"
                             + actv.getDescripcion() + "</descripcion>" + nl);
-                    gxml.write("                    <evaluado>" + (actv.getNota() != null)
+                    gxml.write("                    <evaluado>" + (!actv.nota.isEmpty())
                             + "</evaluado>" + nl);
                     gxml.write("                </actividad>" + nl);
                 }
@@ -247,7 +247,7 @@ public class Transformador {
                             gxml.write("                            " + actv.getDescripcion() + nl);
                             gxml.write("                        </descripcion>" + nl);
                             gxml.write("                        <evaluado>"
-                                    + (actv.getNota() == null ? "si" : "no") + "</evaluado>" + nl);
+                                    + (!actv.nota.isEmpty() ? "si" : "no") + "</evaluado>" + nl);
                             gxml.write("                    </actividad>" + nl);
                         }
                     }
