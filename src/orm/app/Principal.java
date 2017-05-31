@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
 import orm.*;
@@ -654,13 +655,19 @@ public class Principal extends javax.swing.JFrame {
     }
 
     private void agregarNota() throws PersistentException {
+        String[] split = listaActividades.getSelectedValue().split(":");
+        String cond = "id = " + split[0];
+        Actividad actv = ActividadDAO.loadActividadByQuery(cond, null);
+        if (actv.getNota() != null) {
+            String msg = "La actividad seleccionada ya tiene una nota asignada."
+                    + "\nPor favor, eliga otra";
+            JOptionPane.showMessageDialog(null, msg);
+            return;
+        }
         iniciarTransaccion();
         Nota n = new Nota();
         n.setNota(Float.parseFloat((String) notasPosibles.getSelectedItem()));
         n.setEstudiante_id_fk(getEstudianteSeleccionado());
-        String[] split = listaActividades.getSelectedValue().split(":");
-        String cond = "id = " + split[0];
-        Actividad actv = ActividadDAO.loadActividadByQuery(cond, null);
         n.setActividad_id_fk(actv);
         NotaDAO.save(n);
         t.commit();
