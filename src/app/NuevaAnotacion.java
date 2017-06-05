@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package orm.app;
+package app;
 
-import orm.Actividad;
 import org.orm.PersistentException;
-import orm.ActividadDAO;
+import orm.Anotaciones;
+import orm.AnotacionesDAO;
 
 /**
- * Ventana para ingresar una nueva actividad en la planificaci\u00f3n del ramo.
+ * Ventana para ingresar una nueva entrada en el registro de observaciones.
  *
  * @author Mauricio Acencio
  */
-public class NuevaActividad extends javax.swing.JFrame {
+public class NuevaAnotacion extends javax.swing.JFrame {
 
     /**
-     * Creates new form NuevaActividad
+     * Creates new form NuevaAnotacion
      */
-    public NuevaActividad() {
+    public NuevaAnotacion() {
         initComponents();
     }
 
@@ -32,25 +32,17 @@ public class NuevaActividad extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        nombreActividad = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        tipoActividad = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         botonAceptar = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
+        positiva = new javax.swing.JCheckBox();
         jScrollPane2 = new javax.swing.JScrollPane();
-        descActividad = new javax.swing.JTextArea();
+        observacion = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Crear Neava Actividad");
-        setSize(new java.awt.Dimension(258, 343));
+        setTitle("Registrar Nueva Anotación");
 
-        jLabel1.setText("Nombre:");
-
-        jLabel2.setText("Tipo:");
-
-        jLabel3.setText("Descripción de la actividad:");
+        jLabel3.setText("Observación:");
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -66,9 +58,11 @@ public class NuevaActividad extends javax.swing.JFrame {
             }
         });
 
-        descActividad.setColumns(20);
-        descActividad.setRows(5);
-        jScrollPane2.setViewportView(descActividad);
+        positiva.setText("Positiva (si no, negativa)");
+
+        observacion.setColumns(20);
+        observacion.setRows(5);
+        jScrollPane2.setViewportView(observacion);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,22 +71,15 @@ public class NuevaActividad extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tipoActividad)
-                            .addComponent(nombreActividad)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(botonAceptar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(positiva))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(botonAceptar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -100,17 +87,11 @@ public class NuevaActividad extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombreActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(tipoActividad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                    .addComponent(jLabel3)
+                    .addComponent(positiva))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCancelar)
                     .addComponent(botonAceptar))
@@ -131,19 +112,15 @@ public class NuevaActividad extends javax.swing.JFrame {
 
     private void listo(boolean crea) {
         try {
+            Principal.iniciarTransaccion();
             if (crea) {
-                if (nombreActividad.getText().equals("") || tipoActividad.getText().equals("")) {
-                    return;
-                }
-                Principal.iniciarTransaccion();
-                Actividad actv = new Actividad();
-                actv.setNombre(nombreActividad.getText());
-                actv.setTipo(tipoActividad.getText());
-                actv.setDescripcion(descActividad.getText());
-                Principal.getRamoSeleccionado().actividad.add(actv);
-                ActividadDAO.save(actv);
-            } else {
-                Principal.iniciarTransaccion();
+                Anotaciones anot = new Anotaciones();
+                anot.setObservacion(observacion.getText());
+                anot.setEsPositiva(positiva.isSelected());
+                anot.setEstudiante_id_fk(Principal.getEstudianteSeleccionado());
+                anot.setProfesor_id_fk(Principal.getRamoSeleccionado().getProfesorid_pk());
+                Principal.getEstudianteSeleccionado().anotaciones.add(anot);
+                AnotacionesDAO.save(anot);
             }
             this.dispose();
             new Principal().setVisible(true);
@@ -166,21 +143,27 @@ public class NuevaActividad extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(NuevaActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(NuevaAnotacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(NuevaActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(NuevaAnotacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(NuevaActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(NuevaAnotacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(NuevaActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(NuevaAnotacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
+//        //</editor-fold>
 //        //</editor-fold>
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new NuevaActividad().setVisible(true);
+//                new NuevaAnotacion().setVisible(true);
 //            }
 //        });
 //    }
@@ -188,12 +171,9 @@ public class NuevaActividad extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton botonCancelar;
-    private javax.swing.JTextArea descActividad;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField nombreActividad;
-    private javax.swing.JTextField tipoActividad;
+    private javax.swing.JTextArea observacion;
+    private javax.swing.JCheckBox positiva;
     // End of variables declaration//GEN-END:variables
 }

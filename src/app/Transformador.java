@@ -1,4 +1,4 @@
-package orm.app;
+package app;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

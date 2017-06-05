@@ -3,34 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package orm.app;
+package app;
 
-import orm.Asistencia;
+import orm.Actividad;
 
 /**
- * Ventana para visualizar el registro de asistencia de un alumno.
+ * Ventana para visualizar en detalle una actividad de la planificaci\u00f3n.
  *
  * @author Mauricio Acencio
  */
-public class VerAsistencia extends javax.swing.JFrame {
+public class VerActividad extends javax.swing.JFrame {
+
+    private final Actividad actv;
 
     /**
-     * Creates new form VerAsistencia
+     * Creates new form VerActividad
+     *
+     * @param n El \u00edndice del registro de actividad en la lista de la
+     * ventana principal.
      */
-    public VerAsistencia() {
+    public VerActividad(int n) {
+        actv = Principal.getRamoSeleccionado().actividad.toArray()[n];
         initComponents();
-        int sum = 0;
-        Asistencia[] reg = Principal.getEstudianteSeleccionado().asistencia.toArray();
-        for (Asistencia asist: reg) {
-            String desc = asist.getFecha() + ": ";
-            desc += (asist.getPresente() ? "Presente" : "Ausente");
-            modeloLista.addElement(desc);
-            if (asist.getPresente()) {
-                sum++;
-            }
-        }
-        listaAsist.setModel(modeloLista);
-        porcentaje.setText(Integer.toString((sum * 100) / reg.length) + "%");
+        nombreActv.setText(actv.getNombre() + " Tipo: " + actv.getTipo());
+        jTextArea1.setText(actv.getDescripcion());
+        jTextArea1.setEditable(false);
     }
 
     /**
@@ -42,21 +39,18 @@ public class VerAsistencia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        nombreActv = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        modeloLista = new javax.swing.DefaultListModel();
-        listaAsist = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
-        porcentaje = new javax.swing.JLabel();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro de asistencia a clases");
 
-        listaAsist.setModel(modeloLista);
-        jScrollPane1.setViewportView(listaAsist);
+        nombreActv.setText("Nombre");
 
-        jLabel1.setText("Porcentaje de asistencia:");
-
-        porcentaje.setText("%");
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -64,25 +58,19 @@ public class VerAsistencia extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(porcentaje)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(nombreActv)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(porcentaje))
+                .addComponent(nombreActv)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -103,13 +91,13 @@ public class VerAsistencia extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(VerAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VerActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(VerAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VerActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(VerAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VerActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(VerAsistencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(VerActividad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //        //</editor-fold>
@@ -117,16 +105,14 @@ public class VerAsistencia extends javax.swing.JFrame {
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new VerAsistencia().setVisible(true);
+//                new VerActividad().setVisible(true);
 //            }
 //        });
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> listaAsist;
-    private javax.swing.DefaultListModel modeloLista;
-    private javax.swing.JLabel porcentaje;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel nombreActv;
     // End of variables declaration//GEN-END:variables
 }
