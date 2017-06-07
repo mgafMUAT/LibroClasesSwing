@@ -73,9 +73,9 @@ public class Transformador {
                         + "</ingreso>" + nl);
                 gxml.write("                <anotaciones>" + nl);
                 for (Anotaciones an : al.anotaciones.toArray()) {
-                    gxml.write("                    <anotacion p=\"" + 
-                            an.getEsPositiva() + "\">" + an.getObservacion() + 
-                            "</anotacion>" + nl);
+                    gxml.write("                    <anotacion p=\""
+                            + an.getEsPositiva() + "\">" + an.getObservacion()
+                            + "</anotacion>" + nl);
                 }
                 gxml.write("                </anotaciones>" + nl);
                 gxml.write("                <asistencia>" + nl);
@@ -102,110 +102,7 @@ public class Transformador {
                 + "style\\xml2json.xslt"));
         transformer.transform(new StreamSource("data\\libro.xml"), new StreamResult(
                 "data\\libro.json"));
-//        pasarABD();
     }
-    
-//    private static void pasarABD() throws PersistentException{
-//        org.orm.PersistentTransaction t = LibroClasesPersistentManager.instance().getSession().beginTransaction();
-//        Colegio col = Principal.colegio;
-//        try {
-//            agregarABD(col);
-//            for (Apoderado apoderado : Principal.apoderados) {
-//                agregarABD(apoderado);
-//            }
-//            for (Curso cur : col.cursos) {
-//                for (Ramo ramo : cur.ramos) {
-//                    for (Actividad actv : ramo.planificacion) {
-//                        agregarABD(actv);
-//                    }
-//                    agregarABD(ramo);
-//                }
-//                for (Alumno al : cur.alumnos) {
-//                    for (Anotacion anot : al.anotaciones) {
-//                        agregarABD(anot);
-//                    }
-//                    for (Asistencia asist : al.registro) {
-//                        agregarABD(asist);
-//                    }
-//                    agregarABD(al);
-//                }
-//                agregarABD(cur);
-//            }
-//            t.commit();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            t.rollback();
-//        }
-//    }
-    
-//    private static void agregarABD(Colegio col) throws PersistentException {
-//        String query = "ID = " + Integer.toString(col.getID());
-//        Colegio[] existente = ColegioDAO.listColegioByQuery(query, null);
-//        if (existente.length == 0) {
-//            ColegioDAO.save(col);
-//        }
-//    }
-//    
-//    private static void agregarABD(Apoderado ap) throws PersistentException {
-//        String query = "ID = " + Integer.toString(ap.getID());
-//        Apoderado[] existente = ApoderadoDAO.listApoderadoByQuery(query, null);
-//        if (existente.length == 0) {
-//            ApoderadoDAO.save(ap);
-//        }
-//    }
-//    
-//    private static void agregarABD(Curso cur) throws PersistentException {
-//        String query = "ID = " + Integer.toString(cur.getID());
-//        Curso[] existente = CursoDAO.listCursoByQuery(query, null);
-//        if (existente.length == 0) {
-//            CursoDAO.save(cur);
-//        }
-//    }
-//    
-//    private static void agregarABD(Alumno al) throws PersistentException {
-//        String query = "ID = " + Integer.toString(al.getID());
-//        Alumno[] existente = AlumnoDAO.listAlumnoByQuery(query, null);
-//        if (existente.length == 0) {
-//            AlumnoDAO.save(al);
-//            for (Float nota1 : al.notas) {
-//                Nota nota = new Nota();
-//                nota.setNota(nota1);
-//                NotaDAO.save(nota);
-//            }
-//        }
-//    }
-//    
-//    private static void agregarABD(Ramo r) throws PersistentException {
-//        String query = "ID = " + Integer.toString(r.getID());
-//        Ramo[] existente = RamoDAO.listRamoByQuery(query, null);
-//        if (existente.length == 0) {
-//            RamoDAO.save(r);
-//        }
-//    }
-//    
-//    private static void agregarABD(Actividad actv) throws PersistentException {
-//        String query = "ID = " + Integer.toString(actv.getID());
-//        Actividad[] existente = ActividadDAO.listActividadByQuery(query, null);
-//        if (existente.length == 0) {
-//            ActividadDAO.save(actv);
-//        }
-//    }
-//    
-//    private static void agregarABD(Anotacion anot) throws PersistentException {
-//        String query = "ID = " + Integer.toString(anot.getID());
-//        Anotacion[] existente = AnotacionDAO.listAnotacionByQuery(query, null);
-//        if (existente.length == 0) {
-//            AnotacionDAO.save(anot);
-//        }
-//    }
-//    
-//    private static void agregarABD(Asistencia as) throws PersistentException {
-//        String query = "ID = " + Integer.toString(as.getID());
-//        Asistencia[] existente = AsistenciaDAO.listAsistenciaByQuery(query, null);
-//        if (existente.length == 0) {
-//            AsistenciaDAO.save(as);
-//        }
-//    }
 
     /**
      * Genera un informe del tipo especificado a partir del registro actual a
@@ -270,8 +167,8 @@ public class Transformador {
                         gxml.write("                    " + anot.getObservacion() + nl);
                         gxml.write("                </anotacion>" + nl);
                     }
-                    gxml.write("            <asistencia>" + nl);
-                    if (al.asistencia.isEmpty()) {
+                    if (!al.asistencia.isEmpty()) {
+                        gxml.write("            <asistencia>" + nl);
                         int pres = 0;
                         for (Asistencia reg : al.asistencia.toArray()) {
                             gxml.write("                    <fecha presente=\""

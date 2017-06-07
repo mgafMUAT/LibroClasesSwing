@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<informe>
+    <apoderado nombre="Roberto" rut="12345678k">
+        <alumno nombre="Raúl">
+                    <actividad nombre="Prueba 1">
+                        <ramo>Programación</ramo>
+                        <tipo>Teórica</tipo>
+                        <descripcion>
+                            Prueba a partir de material estudiado
+                        </descripcion>
+                        <evaluado>si</evaluado>
+                    </actividad>
+                    <actividad nombre="Proyecto 2">
+                        <ramo>Programación</ramo>
+                        <tipo>Teórico</tipo>
+                        <descripcion>
+                            Revisión
+                        </descripcion>
+                        <evaluado>no</evaluado>
+                    </actividad>
+                    <actividad nombre="Tarea">
+                        <ramo>Programación</ramo>
+                        <tipo>Práctica</tipo>
+                        <descripcion>
+                            La lectura de 80 páginas
+                        </descripcion>
+                        <evaluado>no</evaluado>
+                    </actividad>
+            <notas>
+                <nota>7.0</nota>
+                <promedio aprueba="no">7,0</promedio>
+            </notas>
+                <anotacion>
+                    No puede quedarse sentado
+                </anotacion>
+                <anotacion>
+                    Buen trabajo
+                </anotacion>
+            <asistencia>
+                    <fecha presente="presente">28-02-2017</fecha>
+                <porcentaje>100%</porcentaje>
+            </asistencia>
+        </alumno>
+    </apoderado>
+</informe>

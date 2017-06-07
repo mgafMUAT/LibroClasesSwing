@@ -239,7 +239,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
                 al.getPersona_id_fk().setNombre(nombreAlumno.getText());
                 al.getPersona_id_fk().setRut(rutAlumno.getText());
                 al.setAgnoIngreso((int) ingreso.getValue());
-                al.setMatricula(rutAlumno.getText().concat(Integer.toString((int) ingreso.getValue())));
+                al.setMatricula(rutAlumno.getText().concat(Integer.toString((int) ingreso.getValue()).substring(2)));
                 Apoderado apod;
                 if (apodNuevo.isSelected()) {
                     apod = ApoderadoDAO.createApoderado();

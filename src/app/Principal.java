@@ -540,16 +540,16 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_itemGuardarActionPerformed
 
     private void itemInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemInformeActionPerformed
-//        try {
-//            if (itemInfGeneralApods.isSelected()) {
-//                Transformador.generarInforme(1);
-//            }
-//            if (itemInfApodPupilos.isSelected()) {
-//                Transformador.generarInforme(2);
-//            }
-//        } catch (Exception e) {
-//            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, e);
-//        }
+        try {
+            if (itemInfGeneralApods.isSelected()) {
+                Transformador.generarInforme(1);
+            }
+            if (itemInfApodPupilos.isSelected()) {
+                Transformador.generarInforme(2);
+            }
+        } catch (Exception e) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, e);
+        }
 
     }//GEN-LAST:event_itemInformeActionPerformed
 
