@@ -5,10 +5,13 @@
  */
 package app;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.orm.PersistentException;
 import orm.Apoderado;
 import orm.ApoderadoDAO;
@@ -59,6 +62,7 @@ public class ElegirColegio extends javax.swing.JFrame {
         dirColegio = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         rutDirColegio = new javax.swing.JTextField();
+        btnCargar = new javax.swing.JButton();
 
         jLabel4.setText("jLabel4");
 
@@ -98,6 +102,13 @@ public class ElegirColegio extends javax.swing.JFrame {
             }
         });
 
+        btnCargar.setText("Cargar...");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -110,9 +121,12 @@ public class ElegirColegio extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(nombreCol, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(colExistente)
-                                .addComponent(btnAceptar)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnAceptar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCargar))
                                 .addComponent(jLabel3)
                                 .addComponent(colNuevo)
                                 .addComponent(jLabel5)
@@ -143,7 +157,9 @@ public class ElegirColegio extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listaCol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAceptar)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCargar))
                 .addContainerGap())
         );
 
@@ -175,6 +191,22 @@ public class ElegirColegio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_rutDirColegioKeyTyped
 
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        JFileChooser abridor = new JFileChooser();
+        abridor.setFileFilter(new FileNameExtensionFilter("Archivo de carga XML", "xml"));
+        abridor.setAcceptAllFileFilterUsed(false);
+        int cargar = abridor.showOpenDialog(null);
+        if (cargar == JFileChooser.APPROVE_OPTION) {
+            cargar(abridor.getSelectedFile());
+        }
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void cargar(File arch) {
+        if (Transformador.verificar(arch)) {
+            
+        }
+    }
+    
     private void listo() throws PersistentException {
         if (colNuevo.isSelected()) {
             if (dirColegio.getText().equals("") || rutDirColegio.getText().length() < 9
@@ -269,6 +301,7 @@ public class ElegirColegio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCargar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JRadioButton colExistente;
     private javax.swing.JRadioButton colNuevo;

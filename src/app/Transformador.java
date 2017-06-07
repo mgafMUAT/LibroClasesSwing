@@ -9,6 +9,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import orm.*;
+import org.w3c.dom.*;
+import javax.xml.parsers.*;
 
 /**
  * Clase creada para guardar / transformar los datos almacenados en documentos
@@ -18,6 +20,8 @@ import orm.*;
  * @see Poblador
  */
 public class Transformador {
+
+    private static final int[] CODE = {108, 114, 98, 103, 102, 108, 114, 105, 107, 103, 98};
 
     /**
      * Guarda el registro actual del libro en archivos xml y json.
@@ -30,6 +34,7 @@ public class Transformador {
         Institucion col = Principal.colegio;
         gxml.write("<?xml version=\"1.0\"?>" + nl);
         gxml.write("<registro>" + nl);
+        gxml.write("    <verificar>" + codigo() + "</verificar>" + nl);
         gxml.write("    <colegio nombre=\"" + col.getNombre() + "\" direccion=\""
                 + col.directivo.toArray()[0].getPersona_id_fk().getNombre() + "\">" + nl);
         for (Curso cur : col.curso.toArray()) {
@@ -223,5 +228,26 @@ public class Transformador {
                 + "style\\informe" + n + "xls.xsl"));
         transformer.transform(new StreamSource(name + ".xml"), new StreamResult(
                 name + ".xls"));
+    }
+
+    public static boolean verificar(java.io.File file) {
+        DocumentBuilderFactory docBF = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder docB = docBF.newDocumentBuilder();
+            Document doc = docB.parse(file);
+            doc.getDocumentElement().normalize();
+            String text = doc.getElementsByTagName("verificar").item(0).getTextContent();
+            return text.equals(codigo());
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static String codigo() {
+        StringBuilder sb = new StringBuilder(11);
+        for (int i : CODE) {
+            sb.append((char) i);
+        }
+        return sb.toString();
     }
 }
