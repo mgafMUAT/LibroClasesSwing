@@ -6,13 +6,19 @@
 package app;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import org.orm.PersistentException;
+import org.xml.sax.SAXException;
 import orm.Apoderado;
 import orm.ApoderadoDAO;
 import orm.Curso;
@@ -195,6 +201,7 @@ public class ElegirColegio extends javax.swing.JFrame {
         JFileChooser abridor = new JFileChooser();
         abridor.setFileFilter(new FileNameExtensionFilter("Archivo de carga XML", "xml"));
         abridor.setAcceptAllFileFilterUsed(false);
+        abridor.setCurrentDirectory(new File("data"));
         int cargar = abridor.showOpenDialog(null);
         if (cargar == JFileChooser.APPROVE_OPTION) {
             cargar(abridor.getSelectedFile());
@@ -203,7 +210,16 @@ public class ElegirColegio extends javax.swing.JFrame {
 
     private void cargar(File arch) {
         if (Transformador.verificar(arch)) {
-            
+            try {
+                SAXParser sp = SAXParserFactory.newInstance().newSAXParser();
+                Poblador p = new Poblador();
+                sp.parse(arch, p);
+            } catch (SAXException | IOException | ParserConfigurationException ex) {
+                Logger.getLogger(ElegirColegio.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            String msg = "El archivo XML no es del formato correcto";
+            JOptionPane.showMessageDialog(null, msg, "Archivo incorrecto", JOptionPane.ERROR_MESSAGE);
         }
     }
     

@@ -30,35 +30,18 @@ public class Transformador {
      */
     public static void guardar() throws Exception {
         String nl = System.getProperty("line.separator");
-        BufferedWriter gxml = new BufferedWriter(new FileWriter("data\\libro.xml"));
         Institucion col = Principal.colegio;
+        String nombre = col.getNombre();
+        BufferedWriter gxml = new BufferedWriter(new FileWriter("data\\" + nombre + ".xml"));
         gxml.write("<?xml version=\"1.0\"?>" + nl);
         gxml.write("<registro>" + nl);
         gxml.write("    <verificar>" + codigo() + "</verificar>" + nl);
+        Persona perdir = col.directivo.toArray()[0].getPersona_id_fk();
         gxml.write("    <colegio nombre=\"" + col.getNombre() + "\" direccion=\""
-                + col.directivo.toArray()[0].getPersona_id_fk().getNombre() + "\">" + nl);
+                + perdir.getNombre() + "\" rut=\"" + perdir.getRut() + ">" + nl);
         for (Curso cur : col.curso.toArray()) {
             gxml.write("        <curso nivel=\"" + cur.getNivel() + "\" letra=\""
                     + cur.getLetra() + "\">" + nl);
-            for (Asignatura ramo : cur.asignatura.toArray()) {
-                Profesor p = ramo.getProfesorid_pk();
-                gxml.write("            <profesor nombre=\"" + p.getPersona_id_fk().getNombre()
-                        + "\" rut=\"" + p.getPersona_id_fk().getRut() + "\"/>" + nl);
-                gxml.write("            <ramo nombre=\"" + ramo.getNombre()
-                        + "\">" + nl);
-                for (Actividad actv : ramo.actividad.toArray()) {
-                    gxml.write("                <actividad nombre=\""
-                            + actv.getNombre() + "\">" + nl);
-                    gxml.write("                    <tipo>" + actv.getTipo()
-                            + "</tipo>" + nl);
-                    gxml.write("                    <descripcion>"
-                            + actv.getDescripcion() + "</descripcion>" + nl);
-                    gxml.write("                    <evaluado>" + (!actv.nota.isEmpty())
-                            + "</evaluado>" + nl);
-                    gxml.write("                </actividad>" + nl);
-                }
-                gxml.write("            </ramo>" + nl);
-            }
             ArrayList<Estudiante> almns = new ArrayList<>();
             Curso_estudiante[] ces = cur.curso_estudiante.toArray();
             for (Curso_estudiante ce : ces) {
@@ -90,12 +73,29 @@ public class Transformador {
                             + "</fecha>" + nl);
                 }
                 gxml.write("                </asistencia>" + nl);
-                gxml.write("                <notas>" + nl);
-                for (Nota nota : al.nota.toArray()) {
-                    gxml.write("                    <nota>" + nota.getNota() + "</nota>" + nl);
-                }
-                gxml.write("                </notas>" + nl);
                 gxml.write("            </alumno>" + nl);
+            }
+            for (Asignatura ramo : cur.asignatura.toArray()) {
+                Profesor p = ramo.getProfesorid_pk();
+                gxml.write("            <profesor nombre=\"" + p.getPersona_id_fk().getNombre()
+                        + "\" rut=\"" + p.getPersona_id_fk().getRut() + "\"/>" + nl);
+                gxml.write("            <ramo nombre=\"" + ramo.getNombre()
+                        + "\">" + nl);
+                for (Actividad actv : ramo.actividad.toArray()) {
+                    gxml.write("                <actividad nombre=\""
+                            + actv.getNombre() + "\">" + nl);
+                    gxml.write("                    <tipo>" + actv.getTipo()
+                            + "</tipo>" + nl);
+                    gxml.write("                    <descripcion>"
+                            + actv.getDescripcion() + "</descripcion>" + nl);
+                    for (Nota n : actv.nota.toArray()) {
+                        gxml.write("                    <nota al=\"" +
+                                n.getEstudiante_id_fk().getMatricula() + "\">"
+                                + n.getNota() + "</nota>" + nl);
+                    }
+                    gxml.write("                </actividad>" + nl);
+                }
+                gxml.write("            </ramo>" + nl);
             }
             gxml.write("        </curso>" + nl);
         }
@@ -105,8 +105,8 @@ public class Transformador {
         TransformerFactory tf = TransformerFactory.newInstance();
         Transformer transformer = tf.newTransformer(new StreamSource("data\\"
                 + "style\\xml2json.xslt"));
-        transformer.transform(new StreamSource("data\\libro.xml"), new StreamResult(
-                "data\\libro.json"));
+        transformer.transform(new StreamSource("data\\" + nombre + ".xml"),
+                new StreamResult("data\\" + nombre + ".json"));
     }
 
     /**

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<registro>
+    <verificar>lrbgflrikgb</verificar>
+    <colegio nombre="George Chaytor" direccion="Fernanda Martínez" rut="13727344k">
+        <curso nivel="6" letra="B">
+        </curso>
+        <curso nivel="2" letra="B">
+        </curso>
+        <curso nivel="5" letra="B">
+        </curso>
+        <curso nivel="7" letra="A">
+        </curso>
+        <curso nivel="7" letra="B">
+        </curso>
+        <curso nivel="5" letra="A">
+        </curso>
+        <curso nivel="8" letra="B">
+        </curso>
+        <curso nivel="4" letra="B">
+        </curso>
+        <curso nivel="3" letra="A">
+        </curso>
+        <curso nivel="1" letra="B">
+        </curso>
+        <curso nivel="3" letra="B">
+        </curso>
+        <curso nivel="4" letra="A">
+        </curso>
+        <curso nivel="1" letra="A">
+            <alumno>
+                <apoderado nombre="Roberto" rut="12345678k"/>
+                <nombre>Raúl</nombre>
+                <rut>123456789</rut>
+                <ingreso>2017</ingreso>
+                <anotaciones>
+                    <anotacion p="false">No puede quedarse sentado</anotacion>
+                    <anotacion p="true">Buen trabajo</anotacion>
+                </anotaciones>
+                <asistencia>
+                    <fecha presente="true">28-02-2017</fecha>
+                </asistencia>
+            </alumno>
+            <profesor nombre="Samuel S." rut="129856445"/>
+            <ramo nombre="Programación">
+                <actividad nombre="Proyecto 2">
+                    <tipo>Teórico</tipo>
+                    <descripcion>Revisión</descripcion>
+                </actividad>
+                <actividad nombre="Prueba 1">
+                    <tipo>Teórica</tipo>
+                    <descripcion>Prueba a partir de material estudiado</descripcion>
+                    <nota al="123456789">7.0</nota>
+                </actividad>
+                <actividad nombre="Tarea">
+                    <tipo>Práctica</tipo>
+                    <descripcion>La lectura de 80 páginas</descripcion>
+                </actividad>
+            </ramo>
+        </curso>
+        <curso nivel="2" letra="A">
+        </curso>
+        <curso nivel="6" letra="A">
+        </curso>
+        <curso nivel="8" letra="A">
+        </curso>
+    </colegio>
+</registro>
