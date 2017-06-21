@@ -109,6 +109,7 @@ public class ElegirColegio extends javax.swing.JFrame {
         });
 
         btnCargar.setText("Cargar...");
+        btnCargar.setEnabled(false);
         btnCargar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCargarActionPerformed(evt);
@@ -214,8 +215,11 @@ public class ElegirColegio extends javax.swing.JFrame {
                 SAXParser sp = SAXParserFactory.newInstance().newSAXParser();
                 Poblador p = new Poblador();
                 sp.parse(arch, p);
-            } catch (SAXException | IOException | ParserConfigurationException ex) {
+                new Principal().setVisible(true);
+            } catch (SAXException | IOException | ParserConfigurationException |
+                    PersistentException ex) {
                 Logger.getLogger(ElegirColegio.class.getName()).log(Level.SEVERE, null, ex);
+                System.exit(0);
             }
         } else {
             String msg = "El archivo XML no es del formato correcto";

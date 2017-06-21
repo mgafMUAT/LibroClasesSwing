@@ -66,11 +66,6 @@ public class Poblador extends DefaultHandler {
             String qName, Attributes attributes) throws SAXException {
         temp = "";
         if (qName.equalsIgnoreCase("colegio")) {
-            try {
-                t = LibroClasePersistentManager.instance().getSession().beginTransaction();
-            } catch (PersistentException ex) {
-                throw new SAXException(ex);
-            }
             colegio = InstitucionDAO.createInstitucion();
             colegio.setNombre(attributes.getValue("nombre"));
             String direccion = attributes.getValue("direccion");
@@ -106,7 +101,6 @@ public class Poblador extends DefaultHandler {
             alum.setPersona_id_fk(PersonaDAO.createPersona());
         } else if (qName.equalsIgnoreCase("apoderado")) {
             String rut = attributes.getValue("rut");
-            System.out.println(rutsAp == null);
             if (rutsAp.contains(rut)) {
                 apod = apods.get(rutsAp.indexOf(rut));
             } else {
@@ -153,6 +147,7 @@ public class Poblador extends DefaultHandler {
             actv.setDescripcion(temp);
         } else if (qName.equalsIgnoreCase("nota")) {
             nota.setNota(Float.parseFloat(temp));
+            nota.setActividad_id_fk(actv);
             actv.nota.add(nota);
         } else if (qName.equalsIgnoreCase("actividad")) {
             ramo.actividad.add(actv);
@@ -185,6 +180,11 @@ public class Poblador extends DefaultHandler {
             colegio.curso.add(curso);
         } else if (qName.equalsIgnoreCase("colegio")) {
             try {
+                t = LibroClasePersistentManager.instance().getSession().beginTransaction();
+                for (Apoderado ap : apods) {
+                    PersonaDAO.save(ap.getPersona_id_fk());
+                    ApoderadoDAO.save(ap);
+                }
                 for (Curso cur : colegio.curso.toArray()) {
                     CursoDAO.save(cur);
                     for (Asignatura asig : cur.asignatura.toArray()) {
@@ -197,12 +197,14 @@ public class Poblador extends DefaultHandler {
                     }
                     for (Curso_estudiante ce : cur.curso_estudiante.toArray()) {
                         Estudiante est = ce.getEstudiante_id_fk();
+                        System.out.println(est == null);
                         PersonaDAO.save(est.getPersona_id_fk());
                         EstudianteDAO.save(est);
                         for (Anotaciones antcn : est.anotaciones.toArray()) {
                             AnotacionesDAO.save(antcn);
                         }
                         for (Nota nt : est.nota.toArray()) {
+                            ActividadDAO.save(nt.getActividad_id_fk());
                             NotaDAO.save(nt);
                         }
                     }
@@ -210,9 +212,9 @@ public class Poblador extends DefaultHandler {
                         Curso_estudianteDAO.save(ce);
                     }
                 }
-                InstitucionDAO.save(colegio);
                 PersonaDAO.save(colegio.directivo.toArray()[0].getPersona_id_fk());
                 DirectivoDAO.save(colegio.directivo.toArray()[0]);
+                InstitucionDAO.save(colegio);
                 t.commit();
             } catch (PersistentException ex) {
                 throw new SAXException(ex);
