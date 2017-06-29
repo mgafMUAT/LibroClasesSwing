@@ -466,6 +466,7 @@ public class Principal extends javax.swing.JFrame {
 
         jMenuNuevo.setText("Nuevo...");
 
+        nuevoAlumno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         nuevoAlumno.setText("Alumno...");
         nuevoAlumno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -474,6 +475,7 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenuNuevo.add(nuevoAlumno);
 
+        nuevoRamo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
         nuevoRamo.setText("Ramo...");
         nuevoRamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

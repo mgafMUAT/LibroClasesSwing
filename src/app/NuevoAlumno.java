@@ -247,6 +247,7 @@ public class NuevoAlumno extends javax.swing.JFrame {
                     apod.getPersona_id_fk().setNombre(nombreApod.getText());
                     apod.getPersona_id_fk().setRut(rutApod.getText());
                     ApoderadoDAO.save(apod);
+                    Principal.apoderados.add(apod);
                 } else {
                     apod = Principal.apoderados.get(listaApod.getSelectedIndex());
                 }
