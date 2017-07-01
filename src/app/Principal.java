@@ -739,6 +739,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void setTextoAlumno() {
         modeloAnot.removeAllElements();
+        ListaNotas.removeAllItems();
         if (listaAlumnos.getSelectedIndex() == -1) {
             nombreAlumno.setText("");
             matriculaAlumno.setText("");
@@ -759,7 +760,8 @@ public class Principal extends javax.swing.JFrame {
             for (Nota nota : al.nota.toArray()) {
                 ListaNotas.addItem(nota.getNota() + ": "
                         + nota.getActividad_id_fk().getNombre() + " ("
-                        + nota.getActividad_id_fk().getAsignatura_id_fk().getNombre());
+                        + nota.getActividad_id_fk().getAsignatura_id_fk().getNombre()
+                        + ")");
             }
             listaAnotaciones.setModel(modeloAnot);
             agregarAnotacion.setEnabled(true);
