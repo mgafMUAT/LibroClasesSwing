@@ -25,6 +25,8 @@ public class NuevoRamo extends javax.swing.JFrame {
 
     /**
      * Creates new form nuevoAlumno
+     *
+     * @throws org.orm.PersistentException errores en capa de negocio
      */
     public NuevoRamo() throws PersistentException {
         profesores = ProfesorDAO.listProfesorByQuery(null, null);

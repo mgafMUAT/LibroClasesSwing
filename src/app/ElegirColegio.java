@@ -41,6 +41,8 @@ public class ElegirColegio extends javax.swing.JFrame {
 
     /**
      * Creates new form nuevoAlumno
+     *
+     * @throws org.orm.PersistentException errores en capa de negocio
      */
     public ElegirColegio() throws PersistentException {
         colegios = InstitucionDAO.listInstitucionByQuery(null, null);
@@ -216,8 +218,8 @@ public class ElegirColegio extends javax.swing.JFrame {
                 Poblador p = new Poblador();
                 sp.parse(arch, p);
                 new Principal().setVisible(true);
-            } catch (SAXException | IOException | ParserConfigurationException |
-                    PersistentException ex) {
+            } catch (SAXException | IOException | ParserConfigurationException
+                    | PersistentException ex) {
                 Logger.getLogger(ElegirColegio.class.getName()).log(Level.SEVERE, null, ex);
                 System.exit(0);
             }
@@ -226,7 +228,7 @@ public class ElegirColegio extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, msg, "Archivo incorrecto", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     private void listo() throws PersistentException {
         if (colNuevo.isSelected()) {
             if (dirColegio.getText().equals("") || rutDirColegio.getText().length() < 9
